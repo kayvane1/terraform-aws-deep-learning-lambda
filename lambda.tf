@@ -11,7 +11,7 @@ resource aws_ecr_repository repo {
 data "archive_file" "lambda_code" {
   type = "zip"
   source_dir = "${path.cwd}/../${var.lambda_dir}"
-  output_path = "lamda.zip"
+  output_path = "${path.cwd}/lamda.zip"
 }
 
 resource null_resource ecr_image {
