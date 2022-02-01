@@ -1,13 +1,14 @@
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
-Terraform, Docker, AWS CI, AWS account
+Docker, AWS CLI, Terraform
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.72.0 |
+| <a name="provider_archive"></a> [archive](#provider\_archive) | 2.2.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.74.0 |
 | <a name="provider_null"></a> [null](#provider\_null) | 3.1.0 |
 
 ## Modules
@@ -41,6 +42,7 @@ No modules.
 | [aws_subnet.subnet_public](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet) | resource |
 | [aws_vpc.vpc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc) | resource |
 | [null_resource.ecr_image](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
+| [archive_file.lambda_code](https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/file) | data source |
 | [aws_availability_zones.azs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones) | data source |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_ecr_image.lambda_image](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ecr_image) | data source |
@@ -52,8 +54,12 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_ecr_container_image"></a> [ecr\_container\_image](#input\_ecr\_container\_image) | Memory size for the Lambda function | `string` | `"transformers-lambda-container"` | no |
+| <a name="input_ecr_image_tag"></a> [ecr\_image\_tag](#input\_ecr\_image\_tag) | Memory size for the Lambda function | `string` | `"latest"` | no |
+| <a name="input_ecr_repository_name"></a> [ecr\_repository\_name](#input\_ecr\_repository\_name) | Memory size for the Lambda function | `string` | `"huggingface-container-registry"` | no |
 | <a name="input_efs_permissions"></a> [efs\_permissions](#input\_efs\_permissions) | VPC CIDR block | `string` | `"777"` | no |
 | <a name="input_efs_root_directory"></a> [efs\_root\_directory](#input\_efs\_root\_directory) | VPC CIDR block | `string` | `"/mnt"` | no |
+| <a name="input_lambda_dir"></a> [lambda\_dir](#input\_lambda\_dir) | Memory size for the Lambda function | `string` | `"lambda"` | no |
 | <a name="input_lambda_mount_path"></a> [lambda\_mount\_path](#input\_lambda\_mount\_path) | Timeout for the Lambda function | `string` | `"/mnt"` | no |
 | <a name="input_lambda_transformers_cache"></a> [lambda\_transformers\_cache](#input\_lambda\_transformers\_cache) | Transformers cache directory for the Lambda function | `string` | `"/mnt/hf_models_cache"` | no |
 | <a name="input_memory"></a> [memory](#input\_memory) | Memory size for the Lambda function | `string` | `"4096"` | no |
