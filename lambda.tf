@@ -10,7 +10,7 @@ resource aws_ecr_repository repo {
 
 data "archive_file" "lambda_code" {
   type = "zip"
-  source_dir = "${path.module}/../${var.lambda_dir}"
+  source_dir = "${path.cwd}/../${var.lambda_dir}"
   output_path = "lamda.zip"
 }
 
@@ -22,7 +22,7 @@ resource null_resource ecr_image {
   provisioner "local-exec" {
     command = <<Command
     aws ecr get-login-password --region ${var.region} | docker login --username AWS --password-stdin ${local.account_id}.dkr.ecr.${var.region}.amazonaws.com
-    cd ${path.module}/../${var.lambda_dir}
+    cd ${path.cwd}/../${var.lambda_dir}
     docker build -t ${aws_ecr_repository.repo.repository_url}:${var.ecr_image_tag} .
     docker push ${aws_ecr_repository.repo.repository_url}:${var.ecr_image_tag}
     Command
@@ -37,7 +37,7 @@ data aws_ecr_image lambda_image {
 
 
 resource aws_lambda_function transformers_function {
-  for_each         = fileset("${path.module}/../lambda", "*.py")
+  for_each         = fileset("${path.cwd}/../lambda", "*.py")
   depends_on       = [null_resource.ecr_image,
   aws_efs_mount_target.efs_mount]
   function_name = trimsuffix(each.value,".py")
