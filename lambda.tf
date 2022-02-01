@@ -37,7 +37,7 @@ data aws_ecr_image lambda_image {
 
 
 resource aws_lambda_function transformers_function {
-  for_each         = fileset("${path.cwd}/../lambda", "*.py")
+  for_each         = fileset("${path.cwd}/../${var.lamda_dir}", "*.py")
   depends_on       = [null_resource.ecr_image,
   aws_efs_mount_target.efs_mount]
   function_name = trimsuffix(each.value,".py")
