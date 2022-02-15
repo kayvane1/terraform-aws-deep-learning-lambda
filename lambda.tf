@@ -54,6 +54,7 @@ resource aws_lambda_function transformers_function {
   environment {
     variables = {
       TRANSFORMERS_CACHE: var.lambda_transformers_cache
+      PYTHONIOENCODING: "utf8"
     }
   } 
 
